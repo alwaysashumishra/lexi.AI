@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/context";
@@ -14,12 +14,42 @@ const Main = () => {
     input,
   } = useContext(Context);
 
+  const [profilePic, setProfilePic] = useState(assets.user_icon); // default user icon
+
+  // Handle image upload
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); // temporary preview
+      setProfilePic(imageUrl);
+    }
+  };
+
   return (
     <div className="main">
       <div className="nav">
         <p>Lexi.Ai</p>
-        <img src={assets.user_icon} alt="" />
+
+        {/* Profile picture with upload option */}
+        <div className="profile-container">
+          <label htmlFor="profile-upload">
+            <img
+              src={profilePic}
+              alt="profile"
+              className="profile-pic"
+              title="Click to upload profile picture"
+            />
+          </label>
+          <input
+            id="profile-upload"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageUpload}
+          />
+        </div>
       </div>
+
       <div className="main-container">
         {!showResult ? (
           <>
@@ -51,19 +81,24 @@ const Main = () => {
         ) : (
           <div className="result">
             <div className="result-title">
-              <img src={assets.user_icon} alt="" />
+              <img src={profilePic} alt="user" className="profile-pic-small" />
               <p>{recentPrompt}</p>
             </div>
             <div className="result-data">
               <img src={assets.gemini_icon} alt="" />
-              {loading?<div className="loader">
-                <hr />
-                <hr />
-                <hr />
-              </div>:<p dangerouslySetInnerHTML={{__html:resultData}}></p>}
+              {loading ? (
+                <div className="loader">
+                  <hr />
+                  <hr />
+                  <hr />
+                </div>
+              ) : (
+                <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+              )}
             </div>
           </div>
         )}
+
         <div className="main-bottom">
           <div className="search-box">
             <input
@@ -79,7 +114,7 @@ const Main = () => {
             </div>
           </div>
           <p className="bottom-info">
-            Gemini may display inaccurate info,including about people,so
+            Gemini may display inaccurate info, including about people, so
             double-check its response. Your privacy and Gemini Apps
           </p>
         </div>

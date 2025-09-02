@@ -36,6 +36,32 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+/* Profile pic styles */
+.profile-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+  border-color: #4cafef;
+}
+
+.profile-pic-small {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
 .main .cards {
     display: grid;
