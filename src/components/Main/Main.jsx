@@ -114,7 +114,7 @@ const Main = () => {
             </div>
           </div>
           <p className="bottom-info">
-            Gemini may display inaccurate info, including about people, so
+            Lexi.AI may display inaccurate info, including about people, so
             double-check its response. Your privacy and Gemini Apps
           </p>
         </div>
